@@ -38,15 +38,15 @@ if ingredient_list:
 
     # st.write(ingredients_string)
 
-    my_insert_stmt = f"""
+    my_insert_stmt = """
 INSERT INTO smoothies.public.orders (ingredients, name_on_order)
-VALUES ('{ingredients_string}', '{name_on_order}')
+VALUES (?, ?)
 """
 
     # st.write(my_insert_stmt)
     time_to_insert = st.button("Submit Order")
     
     if time_to_insert:
-        session.sql(my_insert_stmt).collect()
+        session.sql(my_insert_stmt, params=[ingredients_string, name_on_order]).collect()
         st.success(f"Your Smoothie is ordered,{name_on_order}!", icon="✅")
 
